@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manuel | Portfolio</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/scripts/main.js" defer></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"DM Sans"', "sans-serif"],
+            },
+            colors: {
+              primary: "#0F172A",
+              accent: "#6366F1",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      html {
+        min-height: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        min-height: 100%;
+        overflow-x: hidden;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --accent: #8b5cf6;
+      }
+
+      [data-accent="red"] {
+        --accent: #ef4444;
+      }
+      [data-accent="orange"] {
+        --accent: #f97316;
+      }
+      [data-accent="yellow"] {
+        --accent: #facc15;
+      }
+      [data-accent="green"] {
+        --accent: #10b981;
+      }
+      [data-accent="blue"] {
+        --accent: #3b82f6;
+      }
+      [data-accent="indigo"] {
+        --accent: #6366f1;
+      }
+      [data-accent="purple"] {
+        --accent: #8b5cf6;
+      }
+      [data-accent="pink"] {
+        --accent: #ec4899;
+      }
+
+      .text-accent {
+        color: var(--accent) !important;
+      }
+      .hover\:text-accent:hover {
+        color: var(--accent) !important;
+      }
+
+      .bg-accent {
+        background-color: var(--accent) !important;
+      }
+      .hover\:bg-accent:hover {
+        background-color: var(--accent) !important;
+      }
+
+      .border-accent {
+        border-color: var(--accent) !important;
+      }
+
+      .accent-active {
+        ring: 2px solid var(--accent);
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+      }
+
+      @media (min-width: 768px) {
+        [style*="clip-path"]:nth-child(1) {
+          clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%) !important;
+        }
+
+        [style*="clip-path"]:nth-child(2) {
+          clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%) !important;
+        }
+      }
+      @media (min-width: 1440px) and (max-width: 1800px) {
+        .portrait-img {
+          max-height: 320px !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="font-sans text-primary bg-white antialiased">
+    <div
+      id="cursorCircle"
+      class="pointer-events-none fixed top-0 left-0 w-6 h-6 rounded-full border-2 border-accent z-[9999] transition-transform duration-75 ease-linear"
+    ></div>
+
+    <!-- =======================
+       Navigation Bar
+  ======================== -->
+    <nav
+      class="fixed top-0 left-0 w-full h-20 bg-white/90 backdrop-blur border-b border-gray-200 z-50 px-6 flex items-center justify-between shadow-sm"
+    >
+      <!-- Settings Icon -->
+      <button
+        id="settingsIcon"
+        aria-label="Settings"
+        class="text-primary text-2xl sm:text-3xl transition-transform duration-500 hover:animate-spin"
+      >
+        <i class="fas fa-cog"></i>
+      </button>
+      <!-- Accent Color Picker -->
+      <div
+        id="accentPicker"
+        class="absolute left-1/2 -translate-x-1/2 top-full mt-4 bg-white shadow-xl border border-gray-200 p-5 rounded-2xl hidden z-50 transition-all duration-300 opacity-0 scale-95"
+      >
+        <!-- Close Button -->
+        <button
+          id="closeAccentPicker"
+          class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition"
+          aria-label="Close color picker"
+        >
+          <i class="fas fa-times text-lg"></i>
+        </button>
+
+        <!-- Title -->
+        <p class="text-primary font-bold text-lg mb-4">COLORS</p>
+
+        <!-- Color Options -->
+        <div id="accentOptions" class="flex flex-wrap justify-center gap-4">
+          <button
+            class="w-8 h-8 rounded-full bg-red-500"
+            data-color="red"
+            title="Red"
+          ></button>
+          <button
+            class="w-8 h-8 rounded-full bg-orange-500"
+            data-color="orange"
+            title="Orange"
+          ></button>
+          <button
+            class="w-8 h-8 rounded-full bg-yellow-400"
+            data-color="yellow"
+            title="Yellow"
+          ></button>
+          <button
+            class="w-8 h-8 rounded-full bg-green-500"
+            data-color="green"
+            title="Green"
+          ></button>
+          <button
+            class="w-8 h-8 rounded-full bg-blue-500"
+            data-color="blue"
+            title="Blue"
+          ></button>
+          <button
+            class="w-8 h-8 rounded-full bg-indigo-500"
+            data-color="indigo"
+            title="Indigo"
+          ></button>
+          <button
+            class="w-8 h-8 rounded-full bg-purple-500"
+            data-color="purple"
+            title="Purple"
+          ></button>
+          <button
+            class="w-8 h-8 rounded-full bg-pink-500"
+            data-color="pink"
+            title="Pink"
+          ></button>
+        </div>
+      </div>
+
+      <div
+        class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[clamp(1.5rem,5vw,2rem)] font-medium text-primary tracking-wide text-center whitespace-nowrap"
+      >
+        MANUEL S MARSHUTZ
+      </div>
+
+      <!-- Hamburger Icon -->
+      <button
+        id="hamburgerToggle"
+        aria-label="Toggle Menu"
+        class="group flex flex-col items-end space-y-1 sm:space-y-1.5 z-50 relative"
+      >
+        <span
+          class="block h-0.5 bg-primary transition-all duration-300 w-6 group-hover:w-4"
+        ></span>
+        <span
+          class="block h-0.5 bg-primary transition-all duration-300 w-4 group-hover:w-6"
+        ></span>
+      </button>
+    </nav>
+
+    <!-- =======================
+       Fullscreen Hamburger Menu
+  ======================== -->
+    <div
+      id="hamburgerMenu"
+      class="fixed top-0 left-0 w-full h-full bg-white/80 backdrop-blur-md z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col md:flex-row overflow-y-auto max-h-screen"
+    >
+      <!-- Close Button -->
+      <button
+        id="closeHamburger"
+        aria-label="Close Menu"
+        class="absolute top-6 right-6 text-4xl text-primary hover:text-accent transition"
+      >
+        &times;
+      </button>
+
+      <!-- Wrapper for content -->
+      <div
+        class="flex flex-col md:flex-row w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-10 md:py-16 space-y-10 md:space-y-0 md:space-x-12"
+      >
+        <!-- Left Navigation Menu -->
+        <nav
+          class="w-full md:w-1/4 flex flex-col items-center md:items-start justify-center space-y-6 text-center md:text-left"
+        >
+          <a
+            href="#hero"
+            class="text-xl md:text-2xl font-semibold text-primary hover:text-accent transition"
+            >HOME</a
+          >
+          <a
+            href="#projects"
+            class="text-xl md:text-2xl font-semibold text-primary hover:text-accent transition"
+            >PROJECTS</a
+          >
+          <a
+            href="#experience"
+            class="text-xl md:text-2xl font-semibold text-primary hover:text-accent transition"
+            >EXPERIENCE</a
+          >
+          <a
+            href="#contact"
+            class="text-xl md:text-2xl font-semibold text-primary hover:text-accent transition"
+            >CONTACT</a
+          >
+        </nav>
+
+        <!-- Right Section -->
+        <div class="w-full md:w-3/4 flex flex-col justify-center space-y-6">
+          <!-- Dynamic Title -->
+          <h2
+            id="menuTitle"
+            class="text-4xl md:text-5xl font-bold text-primary tracking-widest text-center md:text-left"
+          >
+            ABOUT
+          </h2>
+
+          <!-- ABOUT Content -->
+          <div
+            id="aboutContent"
+            class="max-w-3xl text-base md:text-lg text-gray-800 space-y-5 mx-auto md:mx-0"
+          >
+            <p>
+              I'm
+              <span class="font-semibold text-primary">Manuel Marshutz</span>, a
+              creative explorer at the crossroads of
+              <span class="text-accent font-medium">art and technology</span>.
+              Will add more information...
+            </p>
+
+            <p>Placeholder for additional information...</p>
+
+            <p>Placeholder for additional information...</p>
+
+            <a
+              href="#projects"
+              class="inline-block mt-4 bg-primary text-white px-6 py-2 rounded-full shadow hover:bg-accent transition"
+            >
+              View My Projects
+            </a>
+          </div>
+
+          <!-- Footer -->
+          <p class="text-sm text-gray-500 text-center md:text-left mt-6">
+            © 2024 Manuel Marshutz
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================
+       Sidebar
+  ======================== -->
+    <aside
+      id="sidebar"
+      class="fixed top-24 left-0 -translate-x-full w-80 md:w-96 lg:w-[350px] h-[calc(100vh-160px)] bg-accent text-center px-6 py-10 z-40 transition-transform duration-300 ease-in-out flex flex-col items-center justify-center rounded-r-2xl"
+    >
+      <!-- Toggle Button -->
+      <button
+        id="sidebarToggle"
+        aria-label="Toggle Sidebar"
+        class="absolute right-0 top-1/2 transform translate-x-full -translate-y-1/2 bg-accent text-white pr-4 pl-2 w-12 h-20 sm:w-14 md:w-16 sm:h-20 md:h-24 text-base sm:text-lg md:text-xl rounded-r-full flex items-center justify-center"
+      >
+        <span
+          id="arrowIcon"
+          class="transition-transform duration-500 transform rotate-180 text-lg"
+          >&#8592;</span
+        >
+      </button>
+
+      <!-- Sidebar Content -->
+      <div
+        class="flex flex-col items-center justify-center gap-4 w-full max-w-xs"
+      >
+        <img
+          src="/assets/images/marshutzManuel.JPEG"
+          alt="Manuel"
+          class="w-32 h-32 rounded-full border-4 border-white shadow-md object-cover"
+        />
+
+        <div class="text-white text-xl font-medium">
+          <h1>Marshutz, Manuel</h1>
+          <p
+            id="dynamicTitle"
+            class="transition-opacity duration-500 opacity-100 mt-2 text-lg"
+          >
+            Artist
+          </p>
+        </div>
+
+        <div class="w-16 h-[2px] bg-white rounded"></div>
+
+        <p
+          class="text-white text-md sm:text-lg font-medium px-4 text-left leading-relaxed"
+        >
+          Hi, I’m Manuel — a visual thinker and hands-on problem solver blending
+          art and technology.
+        </p>
+
+        <div class="flex space-x-3 justify-center">
+          <a
+            href="#"
+            class="w-8 h-8 text-sm rounded-full border border-white text-white hover:bg-white hover:text-accent transition flex items-center justify-center"
+            ><i class="fab fa-instagram"></i
+          ></a>
+
+          <a
+            href="#"
+            class="w-8 h-8 text-sm rounded-full border border-white text-white hover:bg-white hover:text-accent transition flex items-center justify-center"
+            ><i class="fab fa-tiktok"></i
+          ></a>
+
+          <a
+            href="#"
+            class="w-8 h-8 text-sm rounded-full border border-white text-white hover:bg-white hover:text-accent transition flex items-center justify-center"
+            ><i class="fab fa-facebook"></i
+          ></a>
+
+          <a
+            href="#"
+            class="w-8 h-8 text-sm rounded-full border border-white text-white hover:bg-white hover:text-accent transition flex items-center justify-center"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+        </div>
+
+        <a
+          href="#contact"
+          class="min-w-[210px] py-2.5 bg-white text-accent rounded-full text-sm font-semibold shadow hover:bg-gray-100 transition text-center"
+          >Let’s Talk</a
+        >
+
+        <p class="text-white text-xs opacity-60 pt-2">
+          © 2024 Manuel Marshutz. All rights reserved.
+        </p>
+      </div>
+    </aside>
+
+    <!-- =======================
+       Main Content
+  ======================== -->
+    <main>
+      <!-- ============
+       Landing Content
+       ============-->
+      <section
+        id="hero"
+        class="min-h-screen bg-[url('/assets/images/twinPeak.webp')] bg-cover bg-[position:62%_50%] md:bg-center px-6 md:pl-20 /* add extra left-padding on tablet+ */ py-24 flex flex-col md:flex-row items-center justify-center text-center md:text-left relative overflow-hidden"
+      >
+        <!-- Left Section -->
+        <div class="text-4xl">
+          <p>SAN<br />FRAN<br />CSICO CA</p>
+        </div>
+        <!-- Right Section with mobile top-margin -->
+        <div
+          class="relative z-10 w-full md:w-1/2 mt-12 md:mt-0 flex flex-wrap justify-center gap-6"
+        ></div>
+
+        <!-- Scroll Down Arrow -->
+        <div
+          class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce text-accent z-10"
+        >
+          <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+      </section>
+      <!-- ============
+       About Content
+       ============-->
+      <section
+        id="about"
+        class="min-h-screen bg-gray-50 px-6 py-10 pb-8 flex flex-col gap-8 items-center justify-start text-center relative"
+      >
+        <section
+          id="identityReveal"
+          class="w-full min-h-[65vh] flex flex-col justify-center items-center bg-gray-50 relative overflow-hidden"
+        >
+          <!-- Date Top Left -->
+          <div
+            id="dateText"
+            class="absolute text-primary text-[clamp(1.2rem,3vw,2rem)] font-semibold uppercase left-[10%] top-[20%] opacity-0"
+          ></div>
+
+          <!-- Action Bottom Right -->
+          <div
+            id="actionText"
+            class="absolute text-primary text-[clamp(1.2rem,3vw,2rem)] font-semibold uppercase right-[10%] bottom-[20%] opacity-0 text-right"
+          ></div>
+
+          <!-- Name Block -->
+          <div
+            class="flex flex-col items-center text-center gap-3 max-w-full px-4 mx-auto z-10 leading-tight"
+          >
+            <!-- MANUEL VEGA -->
+            <div
+              id="manuelVega"
+              class="flex flex-wrap justify-center gap-4 text-primary font-bold tracking-wide sm:tracking-wider text-[clamp(1.5rem,5vw,3rem)] opacity-0 translate-x-[-100%] transition-all duration-1000"
+            >
+              <span>MANUEL</span>
+              <span id="vegaText" class="transition-opacity duration-1000"
+                >VEGA</span
+              >
+            </div>
+
+            <!-- SANTIAGO MARSHUTZ -->
+            <div
+              id="santiagoMarshutz"
+              class="flex flex-wrap justify-center gap-5 text-primary font-black tracking-tight text-[clamp(2.75rem,8vw,6rem)] opacity-0 scale-75 transition-all duration-1000"
+            >
+              <span>SANTIAGO</span>
+              <span class="text-accent">MARSHUTZ</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Subtext + CTA -->
+        <section>
+          <p
+            class="mt-4 text-lg md:text-xl text-gray-700 max-w-2xl mx-auto"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            A name isn't just a label. It's a journey — of transformation,
+            meaning, and self-definition.
+          </p>
+        </section>
+
+        <section
+          id="family-history"
+          class="relative bg-white mt-24 px-4 sm:px-8 md:px-16 lg:px-24 py-12"
+        >
+          <div class="max-w-6xl mx-auto grid md:grid-cols-5 gap-12 items-start">
+            <!-- Left Column: Portrait with Caption -->
+            <div class="md:col-span-2" data-aos="fade-up">
+              <div class="relative overflow-hidden">
+                <img
+                  src="/assets/images/legacy/008.jpg"
+                  alt="Great Grandfather"
+                  class="portrait-img rounded-lg shadow-lg md:pt-6 w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px] lg:max-w-[400px] xl:max-w-[340px] 2xl:max-w-[320px] max-h-[320px] sm:max-h-[360px] md:max-h-[400px] lg:max-h-[420px] object-cover mx-auto transform scale-100 object-center"
+                />
+              </div>
+              <p class="mt-4 text-sm text-gray-600 italic text-center">
+                Herbert Siegfried Marshutz, c. 1880s
+              </p>
+            </div>
+
+            <!-- Right Column: Text Block -->
+            <div class="md:col-span-3" data-aos="fade-up" data-aos-delay="100">
+              <h2
+                class="text-4xl md:text-xl lg:text-4xl font-bold text-primary mb-6"
+              >
+                A Brief Family History
+              </h2>
+              <p class="text-lg text-left text-gray-700 leading-relaxed mb-6">
+                Herbert Siegfried Marshutz, my great-grandfather, established an
+                optometry shop in Los Angeles during the early 20th century.
+                More than just an optical business, his store offered a range of
+                specialized goods—including photographic equipment—that would
+                leave a lasting legacy. His son, Roger Marshutz, later drew upon
+                these tools and environment to pursue photography, eventually
+                gaining recognition for his work, most notably his iconic
+                photograph of Elvis Presley.
+              </p>
+            </div>
+          </div>
+
+          <!-- Bottom Full-width Image: Optometry Shop and Family Photo -->
+          <div
+            class="mt-24 relative max-w-6xl mx-auto"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="flex flex-col md:flex-row overflow-hidden rounded-lg">
+              <!-- Left Image -->
+              <div
+                class="w-full md:w-1/2 h-64 md:h-[500px]"
+                style="clip-path: polygon(0 0, 100% 0, 100% 95%, 0% 100%)"
+              >
+                <img
+                  src="/assets/images/legacy/img150.jpg"
+                  alt="Optometry Shop"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+
+              <!-- Right Image -->
+              <div
+                class="w-full md:w-1/2 h-64 md:h-[500px]"
+                style="clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%)"
+              >
+                <img
+                  src="/assets/images/legacy/elvispresley.jpg"
+                  alt="Historical Family Photo"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            <p class="mt-4 text-sm text-gray-600 italic text-center">
+              Left: the original optometry shop. Right: Elvis Presley in
+              concert.
+            </p>
+          </div>
+        </section>
+      </section>
+
+      <section
+        id="projects"
+        class="scroll-mt-[120px] max-w-7xl mx-auto px-4 md:px-20 lg:px-16 mt-10 mb-20"
+      >
+        <div class="w-full text-left" data-aos="fade-up">
+          <h2 class="text-3xl font-extrabold text-primary mb-6 relative pb-2">
+            FEATURED PROJECTS
+            <span class="block w-24 h-1 bg-accent mt-2"></span>
+          </h2>
+        </div>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center"
+        >
+          <!-- Project Cards -->
+          <div
+            onclick="openModal('modal1')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/line/bridgeLine.png"
+              alt="Project 1"
+              class="w-full h-64 object-cover transition-transform duration-300 scale-105 sm:group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">Around the World</h4>
+              <p class="text-sm">Illustration, 2018</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal2')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/sanFrancisco/embarcadero.jpg"
+              alt="Project 2"
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">Home</h4>
+              <p class="text-sm">Photography, 2020</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal3')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/diversity/diversityCover.png"
+              alt="Project 3"
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">UCSC Diversity</h4>
+              <p class="text-sm">Sculpture, 2024</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal4')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/sail/arrowRender.png"
+              alt="Project 4"
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">Due North</h4>
+              <p class="text-sm">Sculpture, 2024</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal5')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/trash/americaRender.png"
+              alt="Project 5"
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">
+                Make America Trash Again
+              </h4>
+              <p class="text-sm">Sculpture, 2025</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal6')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/sikh/sikhCover.jpg"
+              alt="Project 6"
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">ਪਿਆਰ (Love)</h4>
+              <p class="text-sm">Photography, 2025</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal10')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/cost of a minute/minuteCostblurred.png"
+              alt="Project 6"
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">The Cost of a Minute</h4>
+              <p class="text-sm">Film/Animation, 2025</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal11')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/memory/adoption.JPEG"
+              alt="Project 6"
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">Memories</h4>
+              <p class="text-sm">Augmented Reality, 2025</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal12')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/portfolio/portfolio.png"
+              alt="Project 6"
+              class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">Portfolio Website</h4>
+              <p class="text-sm">2025</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal7')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/refresh/refresh1.jpg"
+              alt="Project 7"
+              class="w-full h-[36rem] object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">Refreshed</h4>
+              <p class="text-sm">Photography, 2025</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal8')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/kresge/RenderWhite.png"
+              alt="Project 7"
+              class="w-full h-[36rem] object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">Drowning</h4>
+              <p class="text-sm">Kresge Project Proposal, 2025</p>
+            </div>
+          </div>
+
+          <div
+            onclick="openModal('modal9')"
+            class="relative group cursor-pointer overflow-hidden w-full max-w-sm"
+            data-aos="fade-up"
+          >
+            <img
+              src="/assets/images/carbon/GasCarbon.png"
+              alt="Project 7"
+              class="w-full h-[36rem] object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-50 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 flex flex-col justify-center items-center text-white"
+            >
+              <h4 class="text-xl font-semibold mb-2">Running on Empty</h4>
+              <p class="text-sm">Sculpture, 2025</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Modals -->
+        <div
+          id="modal1"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal1')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">
+                  Around the World
+                </h2>
+                <p class="text-sm text-gray-500 italic">Illustration • 2018</p>
+                <p class="text-gray-700 mt-4">
+                  "Around the World" is a postcard-sized illustration series
+                  that examines global symbolism and human connection through an
+                  educational lens. Created with pen and ink, each illustration
+                  was digitally rendered and mailed to Waldorf schools across
+                  various countries, symbolizing a unifying visual language
+                  transcending borders.
+                </p>
+                <p class="text-gray-700 mt-2">Medium: Pen and Ink</p>
+                <p class="text-gray-700">Size: 4" x 6"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/line/bridgeLine.png"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/line/londonLine2.png"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/line/southKoreaLine.png"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal2"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal2')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">Home</h2>
+                <p class="text-sm text-gray-500 italic">Photography • 2020</p>
+                <p class="text-gray-700 mt-4">
+                  "Home" presents a contemplative series of black-and-white
+                  photographs capturing iconic landmarks across San Francisco
+                  and the greater Bay Area. Through a careful study of shadow,
+                  contrast, and negative space, the work reflects on themes of
+                  solitude and stillness experienced during the COVID-19
+                  pandemic's stay-at-home orders. The absence of human presence
+                  invites viewers to consider the emotional landscape of
+                  isolation in once-familiar public spaces.
+                </p>
+                <p class="text-gray-700 mt-2">Medium: Photography</p>
+                <p class="text-gray-700">Size: 4" x 6"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/sanFrancisco/embarcadero.jpg"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/twinPeak.webp"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/sanFrancisco/headlands.jpg"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal3"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal3')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">
+                  UCSC Diversity
+                </h2>
+                <p class="text-sm text-gray-500 italic">Sculpture • 2024</p>
+                <p class="text-gray-700 mt-4">
+                  "UCSC Diversity" translates demographic data into sculptural
+                  form, visualizing the 2019 ethnic composition of the student
+                  body at the University of California, Santa Cruz. Each
+                  block—cut, sanded, and proportionally scaled—represents a
+                  distinct population group, transforming statistical
+                  representation into tangible, spatial presence. The piece
+                  invites reflection on identity, visibility, and the collective
+                  makeup of an academic community.
+                </p>
+                <p class="text-gray-700 mt-2">Medium: Douglas fir post</p>
+                <p class="text-gray-700">Size: 4" x 4"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/diversity/diversityCover.png"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/diversity/diversityAngle.png"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal4"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal4')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">Due North</h2>
+                <p class="text-sm text-gray-500 italic">Sculpture • 2024</p>
+                <p class="text-gray-700 mt-4"></p>
+                <p class="text-gray-700 mt-2">Medium: Steel</p>
+                <p class="text-gray-700">Size: 8" x 4"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/sail/arrowRender.png"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/sail/IMG_2424.JPEG"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/sail/IMG_2425.JPEG"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/sail/IMG_2426.JPEG"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal5"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal5')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">
+                  Make America Trash Again
+                </h2>
+                <p class="text-sm text-gray-500 italic">Sculpture • 2025</p>
+                <p class="text-gray-700 mt-4">
+                  A direct response to the political slogan "Make America Great
+                  Again," this assemblage critiques the state of American policy
+                  through the visual language of waste. Constructed from fast
+                  food wrappers, cigarette boxes, soda cans, and corporate
+                  packaging, the American flag is reimagined as a chaotic
+                  patchwork of consumerism and environmental neglect. Each
+                  object was intentionally chosen from brands and products that
+                  either benefit from or remain complicit in regressive
+                  legislation. The work highlights how corporate influence and
+                  harmful policies are woven into the nation’s fabric —
+                  literally and metaphorically. By turning the flag into a
+                  collage of trash, <i>Make American Trash Again</i> rejects
+                  empty patriotism and exposes the rot beneath calls for
+                  “greatness.”
+                </p>
+                <p class="text-gray-700 mt-2">
+                  Medium: Found objects, denim, fabric, packaging waste on
+                  cardboard
+                </p>
+                <p class="text-gray-700">Size: 48" x 48"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/trash/IMG_6328.JPEG"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/trash/IMG_6419.JPEG"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+                <img
+                  src="/assets/images/trash/closeup.JPEG"
+                  alt="Bridge Line"
+                  class="w-full"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal6"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal6')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">
+                  ਪਿਆਰ (Love)
+                </h2>
+                <p class="text-sm text-gray-500 italic">Photography • 2025</p>
+                <p class="text-gray-700 mt-4">
+                  ਪਿਆਰ—the Punjabi word for love—serves as the thematic anchor
+                  for this photographic series. Through the lens of an intimate
+                  relationship, the artist offers a personal exploration into
+                  Sikh culture. Documenting moments from temple visits to
+                  suburban life in northern Stockton, the work reflects a lived
+                  narrative of cultural participation, migration, and the
+                  enduring spirit of the Punjabi-American experience.
+                </p>
+                <p class="text-gray-700 mt-2">
+                  Medium: Inkjet print on Epson Premium Paper Matte
+                </p>
+                <p class="text-gray-700">Size: 13" x 19"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/sikh/sikhCover.jpg"
+                  alt="Temple Shoes"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh1.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh2.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh3.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh4.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh5.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh6.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh7.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh8.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh9.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh10.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh11.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh12.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh13.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh14.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh15.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/sikh/sikh16.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal7"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal7')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">Refreshed</h2>
+                <p class="text-sm text-gray-500 italic">Photography • 2025</p>
+                <p class="text-gray-700 mt-4">
+                  This photographic series captures a transitional moment—both
+                  in place and in practice. Marking a shift from campus life in
+                  Santa Cruz to the urban landscape of Downtown San Jose, the
+                  work explores renewed perspectives through the lens of a newly
+                  adopted Sony A6400 camera. Serving as both a technical and
+                  personal refresher, the series reflects a reintroduction to
+                  photographic fundamentals and the evolving relationship
+                  between photographer and environment.
+                </p>
+                <p class="text-gray-700 mt-2">
+                  Medium: Inkjet print on Canon Pro Platinum Glossy Photo Paper
+                </p>
+                <p class="text-gray-700">Size: 13" x 19"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/refresh/refresh1.jpg"
+                  alt="Temple Shoes"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/refresh/refresh2.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/refresh/refresh3.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/refresh/refresh4.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/refresh/refresh5.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/refresh/refresh6.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/refresh/refresh7.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/refresh/refresh8.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal8"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal8')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">
+                  Kresge Project: <i>Drowning</i>
+                </h2>
+                <p class="text-sm text-gray-500 italic">
+                  Project Proposal • 2025
+                </p>
+                <p class="text-gray-700 mt-4">
+                  Drowning is a 20-foot-tall sculpture proposed for installation
+                  in front of the Kresge Academic Building. Inspired by the
+                  R-Evolution statue in San Francisco, this work captures the
+                  emotional complexity of graduating—standing at the threshold
+                  between the known and the unknown. A female graduate is
+                  depicted submerged in a transparent oil barrel, symbolizing
+                  the weight of debt, fear, identity, or the future. The piece
+                  is intentionally ambiguous—inviting interpretation as either
+                  sinking or striving. It represents both personal vulnerability
+                  and shared resilience within the student experience.
+                </p>
+                <p class="text-gray-700 mt-2">
+                  Medium: Augmented Reality (AR), Adobe Aero, Digital
+                  Installation
+                </p>
+                <p class="text-gray-700">Size: "20 feet"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/kresge/KresgeProposal-01.png"
+                  alt="Temple Shoes"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/kresge/KresgeProposal-02.png"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/kresge/KresgeProposal-03.png"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal9"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal9')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">
+                  Running on Empty
+                </h2>
+                <p class="text-sm text-gray-500 italic">Sculpture • 2025</p>
+                <p class="text-gray-700 mt-4">
+                  This sculptural model of a gas station explores the quiet
+                  burden of commuting and the personal cost of mobility. Built
+                  entirely from cardboard, the piece reflects my weekly drives
+                  from San Jose to Santa Cruz—hours spent alone and dollars
+                  spent on gas. The miniature station is deliberately sparse,
+                  evoking a sense of detachment and emotional stillness. While
+                  modest in size, it represents the cumulative toll of fossil
+                  fuel dependency—financially, environmentally, and
+                  psychologically. Fuel for Isolation is a reflection on
+                  routine, resource consumption, and the quiet loneliness that
+                  can accompany the pursuit of education.
+                </p>
+                <p class="text-gray-700 mt-2">
+                  Medium: Acrylic paint on carboard
+                </p>
+                <p class="text-gray-700">Size: 7" x 10"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/carbon/_DSC0229.jpg"
+                  alt="Temple Shoes"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/carbon/_DSC0230.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+                <img
+                  src="/assets/images/carbon/_DSC0231.jpg"
+                  alt="Bridge Line"
+                  class="max-w-xl w-full mx-auto"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal10"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal10')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">
+                  The Cost of a Minute
+                </h2>
+                <p class="text-sm text-gray-500 italic">Mixed Media • 2025</p>
+                <p class="text-gray-700 mt-4">
+                  In this minute-long visual essay,
+                  <i>The Cost of a Minute</i> invites viewers to confront the
+                  economic and ecological weight of time itself. By calculating
+                  the precise cost of a single minute of an average students
+                  life—factoring rent, tuition, food, subscriptions, and
+                  associated carbon emissions—the artist translates abstract
+                  systems into a personal, tangible metric. The result is a
+                  compelling fusion of data, narrative, and environmental
+                  critique, asking: What do we spend, and what do we emit, just
+                  by existing? This piece serves as both introspection and
+                  intervention—encouraging viewers to consider the hidden
+                  rhythms of their own consumption and the unseen impact of each
+                  passing moment.
+                </p>
+                <p class="text-gray-700 mt-2">Medium: Digital Animation</p>
+              </header>
+
+              <section class="space-y-6">
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/hBE4sz0YYuY?si=4OS2B4V_K8Q_9yZ9"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                  class="max-w-xl w-full mx-auto"
+                ></iframe>
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="modal11"
+          class="project-modal hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        >
+          <div class="bg-white w-full h-full relative overflow-y-auto">
+            <button
+              class="absolute top-6 right-6 text-3xl text-gray-600 hover:text-primary z-50"
+              onclick="closeModal('modal11')"
+            >
+              &times;
+            </button>
+            <div class="pt-20 px-10 max-w-5xl mx-auto">
+              <header class="mb-8">
+                <h2 class="text-4xl font-bold text-primary mb-2">Memories</h2>
+                <p class="text-sm text-gray-500 italic">
+                  Augmented Reality • 2025
+                </p>
+                <p class="text-gray-700 mt-4"></p>
+                <p class="text-gray-700 mt-2">
+                  Medium: Augmented Reality (AR), Adobe Aero, Digital
+                  Installation
+                </p>
+                <p class="text-gray-700">Size: 7" x 10"</p>
+              </header>
+
+              <section class="space-y-6">
+                <img
+                  src="/assets/images/memory/MemoriesPDF.png"
+                  alt="Temple Shoes"
+                  class="max-w-xl w-full mx-auto"
+                />
+              </section>
+
+              <footer class="mt-10 mb-10 text-xs text-gray-500 text-center">
+                &copy; 2025 Manuel Marshutz. All rights reserved.
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional modals (modal2 - modal6) to be filled out similarly -->
+      </section>
+
+      <!-- Experience Section -->
+
+      <section id="experience" class="min-h-screen bg-gray-100 p-10">
+        <section class="max-w-7xl mx-auto px-4 md:px-10 lg:px-16 mt-6">
+          <div class="w-full text-left" data-aos="fade-up">
+            <h2 class="text-3xl font-extrabold text-primary mb-6 relative pb-2">
+              EXPERIENCE
+              <span class="block w-24 h-1 bg-accent mt-2"></span>
+            </h2>
+          </div>
+
+          <div
+            class="max-w-6xl mx-auto px-4 md:px-0 lg:px-10 mt-12 grid grid-cols-1 md:grid-cols-2 gap-24"
+          >
+            <!-- Timeline Column -->
+            <div class="relative" data-aos="fade-up">
+              <!-- Vertical Timeline Line -->
+              <div
+                class="absolute left-4 top-3 bottom-0 w-[2px] bg-accent"
+              ></div>
+
+              <!-- Timeline Items -->
+              <div class="relative pl-10 mb-16">
+                <div
+                  class="absolute left-4 top-2 w-3 h-3 rounded-full bg-accent z-10 -translate-x-1/2"
+                ></div>
+                <div class="text-left mt-0.5">
+                  <span class="text-lg font-medium text-accent block mb-1"
+                    >2022 – Present</span
+                  >
+                  <h3 class="text-xl font-bold text-primary">
+                    Advanced Repair Agent
+                  </h3>
+                  <p class="text-lg text-gray-700">Geek Squad</p>
+                </div>
+              </div>
+
+              <div class="relative pl-10 mb-16">
+                <div
+                  class="absolute left-4 top-2 w-3 h-3 rounded-full bg-accent z-10 -translate-x-1/2"
+                ></div>
+                <div class="text-left mt-0.5">
+                  <span class="text-lg font-medium text-accent block mb-1"
+                    >2022 – 2025</span
+                  >
+                  <h3 class="text-xl font-bold text-primary">B.A. in Art</h3>
+                  <p class="text-lg text-gray-700">University of Santa Cruz</p>
+                </div>
+              </div>
+
+              <div class="relative pl-10 mb-6">
+                <div
+                  class="absolute left-4 top-2 w-3 h-3 rounded-full bg-accent z-10 -translate-x-1/2"
+                ></div>
+                <div class="text-left mt-0.5">
+                  <span class="text-lg font-medium text-accent block mb-1"
+                    >2016 – 2022</span
+                  >
+                  <h3 class="text-xl font-bold text-primary">
+                    Trade Show Manager
+                  </h3>
+                  <p class="text-lg text-gray-700">Emerald Sky</p>
+                  <br />
+                  <h3 class="text-xl font-bold text-primary">
+                    Brand Representative
+                  </h3>
+                  <p class="text-lg text-gray-700">Emerald Sky</p>
+                  <br />
+                  <h3 class="text-xl font-bold text-primary">Barista</h3>
+                  <p class="text-lg text-gray-700">Contraband Coffee</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Skills Column -->
+            <div class="w-full" data-aos="fade-up" data-aos-delay="150">
+              <div
+                class="bg-white shadow rounded-lg p-5 border border-gray-200"
+              >
+                <h4 class="text-xl font-semibold text-primary mb-5">
+                  My Skills
+                </h4>
+
+                <!-- Wrapped Skills for Width Control -->
+                <div class="w-full sm:w-4/5 mx-auto">
+                  <div class="mb-3">
+                    <div class="flex justify-between text-base mb-1">
+                      <span>TailwindCSS</span>
+                      <span>95%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        class="bg-accent h-2 rounded-full"
+                        style="width: 95%"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="flex justify-between text-base mb-1">
+                      <span>JavaScript</span>
+                      <span>85%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        class="bg-accent h-2 rounded-full"
+                        style="width: 85%"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="flex justify-between text-base mb-1">
+                      <span>Hardware Diagnostic</span>
+                      <span>90%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        class="bg-accent h-2 rounded-full"
+                        style="width: 90%"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="flex justify-between text-base mb-1">
+                      <span>React</span>
+                      <span>70%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        class="bg-accent h-2 rounded-full"
+                        style="width: 90%"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="mb-6">
+                    <div class="flex justify-between text-base mb-1">
+                      <span>Python</span>
+                      <span>60%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        class="bg-accent h-2 rounded-full"
+                        style="width: 60%"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tools & Software Section -->
+                <h4 class="text-base font-semibold text-primary mb-2 mt-5">
+                  Tools & Software
+                </h4>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-3">
+                  <div class="flex flex-col items-center text-center">
+                    <i class="fas fa-photo-video text-accent text-lg mb-1"></i>
+                    <span class="text-sm text-gray-700 font-medium"
+                      >Adobe Suite</span
+                    >
+                  </div>
+                  <div class="flex flex-col items-center text-center">
+                    <i class="fas fa-pencil-ruler text-accent text-lg mb-1"></i>
+                    <span class="text-sm text-gray-700 font-medium">Figma</span>
+                  </div>
+                  <div class="flex flex-col items-center text-center">
+                    <i class="fas fa-code text-accent text-lg mb-1"></i>
+                    <span class="text-sm text-gray-700 font-medium"
+                      >VS Code & Git</span
+                    >
+                  </div>
+                  <div class="flex flex-col items-center text-center">
+                    <i class="fas fa-cube text-accent text-lg mb-1"></i>
+                    <span class="text-sm text-gray-700 font-medium"
+                      >Blender</span
+                    >
+                  </div>
+                  <div class="flex flex-col items-center text-center">
+                    <i class="fas fa-globe text-accent text-lg mb-1"></i>
+                    <span class="text-sm text-gray-700 font-medium"
+                      >WordPress</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Certifications / Achievements -->
+                <h4 class="text-base font-semibold text-primary mb-2 mt-5">
+                  Certifications
+                </h4>
+                <div class="grid grid-cols-2 sm:grid-cols-2 gap-3 mt-3 mb-2">
+                  <div class="flex flex-col items-center text-center">
+                    <i class="fas fa-certificate text-accent text-lg mb-1"></i>
+                    <span class="text-sm text-gray-700 font-medium"
+                      >Adobe Illustrator 2025</span
+                    >
+                  </div>
+                  <div class="flex flex-col items-center text-center">
+                    <i class="fas fa-certificate text-accent text-lg mb-1"></i>
+                    <span class="text-sm text-gray-700 font-medium"
+                      >CompTIA A+</span
+                    >
+                  </div>
+                  <div class="flex flex-col items-center text-center">
+                    <i class="fas fa-certificate text-accent text-lg mb-1"></i>
+                    <span class="text-sm text-gray-700 font-medium"
+                      >Apple Certified iOS Technician (ACiT)</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="contact" class="min-h-screen p-10">
+        <section class="max-w-7xl mx-auto px-4 md:px-10 lg:px-16 mt-6">
+          <div class="w-full text-left" data-aos="fade-up">
+            <h2 class="text-3xl font-extrabold text-primary mb-6 relative pb-2">
+              CONTACT
+              <span class="block w-24 h-1 bg-accent mt-2"></span>
+            </h2>
+          </div>
+          <h3 class="text-3xl font-bold text-primary mb-6 text-center">
+            Get In Touch
+          </h3>
+
+          <div
+            class="max-w-2xl mx-auto bg-gray-100 p-8 rounded-xl shadow space-y-6"
+          >
+            <p class="text-gray-700 text-center text-lg">
+              Have a project in mind or just want to say hello? I’d love to hear
+              from you.
+            </p>
+
+            <form class="space-y-4">
+              <input
+                type="text"
+                placeholder="Your Name"
+                class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+              <input
+                type="email"
+                placeholder="Your Email"
+                class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+              <textarea
+                placeholder="Your Message"
+                class="w-full border border-gray-300 rounded px-4 py-2 h-32 focus:outline-none focus:ring-2 focus:ring-accent"
+              ></textarea>
+              <button
+                type="submit"
+                class="bg-accent text-white px-6 py-3 rounded-full font-medium shadow hover:bg-primary transition"
+              >
+                Send Message
+              </button>
+            </form>
+
+            <!-- Optional social links under form -->
+            <div class="flex justify-center gap-4 mt-6 text-accent text-xl">
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="bg-accent text-white py-2 px-4">
+      <div class="max-w-6xl mx-auto flex flex-col items-center space-y-1">
+        <button
+          onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+          class="bg-white text-accent px-3 py-1 text-xs rounded-full font-medium shadow hover:bg-gray-100 transition"
+        >
+          ↑
+        </button>
+        <p class="text-[10px] opacity-60 text-center">
+          &copy; 2024 Manuel Marshutz. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- =======================
+       Scripts
+  ======================== -->
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        AOS.init({
+          once: true,
+          duration: 800,
+          easing: "ease-out-cubic",
+        });
+      });
+    </script>
+  </body>
+</html>
